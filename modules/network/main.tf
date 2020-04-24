@@ -19,7 +19,7 @@ resource "aws_subnet" "terraform-pub-subent" {
 resource "aws_subnet" "terraform-prv-subent" {
   vpc_id     = aws_vpc.terraform-vpc.id
   cidr_block = "10.0.2.0/24"
-  availability_zone = "us-east-2a"
+  availability_zone = var.zone
 
   tags = {
     Name = "terraform-prv-subnet"

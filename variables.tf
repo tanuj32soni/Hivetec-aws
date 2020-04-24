@@ -2,6 +2,15 @@ variable "access_key" {
   type    = string
 }
 
+variable "no_of_runners" {
+  type = number
+}
+
+variable "runner_ami_owner_id" {
+  type = string
+}
+
+
 variable "secret_key" {
   type    = string
 }

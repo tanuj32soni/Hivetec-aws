@@ -3,6 +3,14 @@ variable "zone" {
   default = "us-east-2a"
 }
 
+variable "no_of_runners" {
+  type = number
+}
+
+variable "runner_ami_owner_id" {
+  type = string
+}
+
 variable "key_name" {
   type = string
 }

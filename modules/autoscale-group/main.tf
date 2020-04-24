@@ -21,7 +21,7 @@ data "aws_ami" "runner" {
     name   = "tag:ami_family"
     values = ["gitlab-runner"]
   }
-  owners = ["991604069872"]
+  owners = [var.runner_ami_owner_id]
 }
 
 data "template_file" "startup-script" {
@@ -47,9 +47,9 @@ resource "aws_launch_template" "instance_template" {
 
 resource "aws_autoscaling_group" "runner" {
   vpc_zone_identifier = [var.private_subnet_id]
-  desired_capacity    = 2
-  max_size            = 2
-  min_size            = 2
+  desired_capacity    = var.no_of_runners
+  max_size            = var.no_of_runners
+  min_size            = var.no_of_runners
 
   launch_template {
     id      = aws_launch_template.instance_template.id
