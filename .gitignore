@@ -1,0 +1,5 @@
+gitlab-runner.pem
+terraform.tfvars.json
+terraform.tfstate
+terraform.tfstate.backup
+.terraform
