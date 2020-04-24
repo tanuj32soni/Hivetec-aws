@@ -2,7 +2,7 @@ resource "aws_vpc" "terraform-vpc" {
   cidr_block       = "10.0.0.0/16"
   enable_dns_hostnames = true
   tags = {
-    Name = "gitlab-ci"
+    Name = "gitlab-ci-vpc"
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_internet_gateway" "internet-gateway" {
   vpc_id = aws_vpc.terraform-vpc.id
 
   tags = {
-    Name = "main"
+    Name = "main-igw"
   }
 }
 
@@ -43,7 +43,7 @@ resource "aws_route_table" "route-table-pub" {
   }
 
   tags = {
-    Name = "public"
+    Name = "route-table-pub"
   }
 }
 
@@ -62,7 +62,7 @@ resource "aws_nat_gateway" "nat-gateway" {
   subnet_id     = aws_subnet.terraform-pub-subent.id
 
   tags = {
-    Name = "gw NAT"
+    Name = "gw-NAT"
   }
 
   depends_on = [aws_internet_gateway.internet-gateway]
@@ -77,7 +77,7 @@ resource "aws_route_table" "route-table-prv" {
   }
 
   tags = {
-    Name = "private"
+    Name = "route-table-prv"
   }
 }
 
@@ -87,7 +87,7 @@ resource "aws_route_table_association" "rta-prv" {
 }
 
 resource "aws_security_group" "allow_ssh_private" {
-  name        = "allow_tls"
+  name        = "allow_tls_private"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.terraform-vpc.id
 
@@ -107,7 +107,7 @@ resource "aws_security_group" "allow_ssh_private" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_ssh_private"
   }
 }
 
@@ -132,6 +132,6 @@ resource "aws_security_group" "allow_ssh_public" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_ssh_public"
   }
 }

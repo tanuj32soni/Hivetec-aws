@@ -11,7 +11,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["099720109477"]
 }
 
 data "aws_ami" "runner" {
@@ -21,7 +21,7 @@ data "aws_ami" "runner" {
     name   = "tag:ami_family"
     values = ["gitlab-runner"]
   }
-  owners = ["991604069872"] # Canonical
+  owners = ["991604069872"]
 }
 
 data "template_file" "startup-script" {

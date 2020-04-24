@@ -6,5 +6,3 @@ sudo gitlab-runner register \
     --registration-token "${ gitlab_runner_registration_token }" \
     --description "${ gitlab_runner_description }" \
     --executor "${ gitlab_runner_executor }"
-
-# sudo cp runner/config.toml /etc/gitlab-runner/config.toml
