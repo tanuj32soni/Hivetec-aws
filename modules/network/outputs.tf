@@ -37,3 +37,7 @@ output "aws_sg_prv_id" {
   description = "Private security group id"
   value = aws_security_group.allow_ssh_private.id
 }
+
+output "rta_prv" {
+  value = aws_route_table_association.rta-prv.id
+}
