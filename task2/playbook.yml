@@ -1,0 +1,21 @@
+- name: "Configure certificates"
+  hosts: runners
+  remote_user: ubuntu
+
+  tasks:
+    - name: add cert.key
+      copy:
+        src: certs/cert.key
+        dest: ~/etc/ssl/
+        owner: ubuntu
+        group: ubuntu
+        mode: 0600
+
+    - name: add cert.pem
+      copy:
+        src: certs/cert.pem
+        dest: ~/etc/ssl/
+        owner: ubuntu
+        group: ubuntu
+        mode: 0600
+
