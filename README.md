@@ -96,3 +96,44 @@ ansible-playbook -i inventory.ini playbook.yml
 Note: The above config of task 2 is for one bastion host and multiple k8s nodes.
 
 
+
+## Explanation
+
+![Flow](/images/aws_flow.png)
+
+### VPC
+
+We are creating one VPC in which all our resources will be deployed.
+
+### Subnets
+
+There are two subnets.
+
+- `Public Subnet`: In this subnet, bastion host will be deployed. This subnet has route table configured to point to the internet gateway.
+
+- `Private Subnet`: In this subnet, runner instances will be deployed. This subnet cannot be accessed by internet directly.
+
+### Internet Gateway
+
+An internet gateway is attached to the vpc to access the internet.
+
+### NAT Gateway
+
+A NAT Gateway is setted up in public subnet. The route table of private subnet will be pointed to this NAT gateway to forward the traffic to the internet. By default, only egress traffic is allowed in the NAT Gateway.
+
+### Security groups
+
+There will be two security groups, one for the instances in public subnet ans one for the instances in private subnet.
+
+These security groups defines the firewall rules for the traffic.
+
+The first security group which is for the instances in public subnet, allows all tcp egress traffic and allows ingress from internet(Can be changed specific ips to whitelist).
+
+The second security group which is for the instances in private subnet, allows ingress traffic only on port 22(ssh) from the instances in public subnet(can be configured to allow only some instances in public subnet) allows all tcp egress traffic.
+
+
+### Number of instances
+Currently one bastion host will be deployed in public subnet(which can be configured) and number of runners needed in the private subnet are deployed according to the config variable.
+
+To connect to the private instances, use the private key generated to access the private instances through the bastion host.
+
